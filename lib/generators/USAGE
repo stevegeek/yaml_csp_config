@@ -1,0 +1,3 @@
+Creates an initial basic YAML configuration, an initialiser and configures Rails to use the gem
+
+    rails generate yaml_csp_config:install

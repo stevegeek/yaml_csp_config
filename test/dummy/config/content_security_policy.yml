@@ -1,0 +1,41 @@
+content_security_policy:
+  # Base config
+  report_uri: "/csp-violation-report-endpoint"
+
+  default_src: :self
+
+  object_src: :none
+
+  connect_src:
+    - :self
+
+  font_src:
+    - :self
+    - :data
+
+  script_src:
+    - :self
+    - https://www.google-analytics.com
+
+  img_src:
+    - :self
+    - :data
+    - foobar
+
+  style_src:
+    - :unsafe_inline
+
+# In 'development' Rails env
+development:
+  script_src:
+    - :unsafe_eval
+    - https://localhost:3035
+  style_src:
+    - https://localhost:3035
+  connect_src:
+    - ws://127.0.0.1:35729
+    - wss://127.0.0.1:35729
+
+demo_app:
+  script_src:
+    - https://cdnjs.cloudflare.com
