@@ -31,7 +31,7 @@ module YamlCspConfig
     def initialize(
       policy,
       config_file_path,
-      group_key: YamlCspConfig.configuration.default_env_var_additions_key_prefix,
+      group_key: YamlCspConfig.configuration.default_env_var_group_key,
       var_key_prefix: YamlCspConfig.configuration.default_env_var_additions_key_prefix
     )
       raise ArgumentError, "Config file doesn't exist" unless File.exist?(config_file_path)
@@ -66,7 +66,7 @@ module YamlCspConfig
     end
 
     def csp_config
-      @csp_config ||= HashWithIndifferentAccess.new(yaml[YamlCspConfig.configuration.yaml_config_base_key])
+      @csp_config ||= HashWithIndifferentAccess.new(yaml[YamlCspConfig.configuration.yaml_config_base_key.to_s])
     end
 
     def configure_with_overrides

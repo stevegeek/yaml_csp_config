@@ -18,13 +18,14 @@ module YamlCspConfig
     end
 
     test "loads Rails env configuration" do
-      Rails.env = :development
+      Rails.env = "development"
       YamlCspConfig.configure
       policy = ActionDispatch::ContentSecurityPolicy.new.load_from_yml
+      Rails.env = "test"
       assert_kind_of ActionDispatch::ContentSecurityPolicy, policy
       assert_includes policy.directives, "script-src"
       assert_equal policy.directives["script-src"],
-                   [SELF_POLICY, "https://www.google-analytics.com", "unsafe_eval", "https://localhost:3035"]
+                   [SELF_POLICY, "https://www.google-analytics.com", "'unsafe-eval'", "https://localhost:3035"]
       assert_equal policy.directives["font-src"], [SELF_POLICY, DATA_PROTOCOL_POLICY]
     end
 
@@ -32,6 +33,7 @@ module YamlCspConfig
       ENV["CSP_CONFIGURATION_ADDITIONS_SCRIPT_SRC"] = "test"
       YamlCspConfig.configure
       policy = ActionDispatch::ContentSecurityPolicy.new.load_from_yml
+      ENV["CSP_CONFIGURATION_ADDITIONS_SCRIPT_SRC"] = nil
       assert_kind_of ActionDispatch::ContentSecurityPolicy, policy
       assert_includes policy.directives, "script-src"
       assert_equal policy.directives["script-src"], [SELF_POLICY, "https://www.google-analytics.com", "test"]
@@ -41,6 +43,7 @@ module YamlCspConfig
       ENV["CSP_CONFIGURATION_GROUP_KEY"] = "demo_app"
       YamlCspConfig.configure
       policy = ActionDispatch::ContentSecurityPolicy.new.load_from_yml
+      ENV["CSP_CONFIGURATION_GROUP_KEY"] = nil
       assert_kind_of ActionDispatch::ContentSecurityPolicy, policy
       assert_includes policy.directives, "script-src"
       assert_equal policy.directives["script-src"],
