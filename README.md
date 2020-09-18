@@ -27,6 +27,14 @@ Or install it yourself as:
 $ gem install yaml_csp_config
 ```
 
+## Run type check (RBS & steep)
+
+First copy the signatures for Rails from `https://github.com/pocke/rbs_rails/tree/master/assets/sig`
+to the project `sig/rbs_rails` directory. Then run
+
+    `bundle exec steep check`
+    
+
 
 ## License
 
