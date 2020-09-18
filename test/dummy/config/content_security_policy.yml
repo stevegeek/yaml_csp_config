@@ -1,3 +1,10 @@
+self_and_data_uri_policy: &SELF_AND_DATA
+  - :self
+  - :data
+
+google_hosts: &GOOGLE
+  - https://www.google-analytics.com
+
 content_security_policy:
   # Base config
   report_uri: "/csp-violation-report-endpoint"
@@ -9,17 +16,15 @@ content_security_policy:
   connect_src:
     - :self
 
-  font_src:
-    - :self
-    - :data
+  font_src: *SELF_AND_DATA
 
   script_src:
     - :self
-    - https://www.google-analytics.com
+    - *GOOGLE
 
   img_src:
-    - :self
-    - :data
+    - *SELF_AND_DATA
+    - *GOOGLE
     - foobar
 
   style_src:

@@ -11,6 +11,7 @@ module YamlCspConfig
       desc "Creates an initial basic YAML configuration, an initializer and configures Rails to use the gem."
 
       copy_file "yaml_csp_config.rb", "config/initializers/yaml_csp_config.rb"
+      copy_file "content_security_policy.yml", "config/content_security_policy.yml"
     end
   end
 end

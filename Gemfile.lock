@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     yaml_csp_config (0.1.0)
-      rails (~> 6.0.3, >= 6.0)
+      rails (~> 6.0.3, >= 5.2)
 
 GEM
   remote: https://rubygems.org/

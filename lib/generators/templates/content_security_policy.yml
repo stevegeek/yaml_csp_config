@@ -1,0 +1,26 @@
+# Base config example
+content_security_policy:
+  report_uri: "/csp-violation-report-endpoint"
+
+  default_src: :self
+
+  object_src: :none
+
+  connect_src:
+    - :self
+
+  font_src:
+    - :self
+    - :data
+
+  script_src:
+    - :self
+
+  img_src:
+    - :self
+    - :data
+
+# In 'development' Rails env
+development:
+  script_src:
+    - :unsafe_eval

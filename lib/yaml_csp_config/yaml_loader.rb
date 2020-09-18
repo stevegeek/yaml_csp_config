@@ -60,12 +60,12 @@ module YamlCspConfig
 
     def raw_configuration
       parsed = ERB.new(File.read(config_file_path.to_s)).result(binding)
-      YAML.safe_load(parsed, permitted_classes: [Symbol])
+      YAML.safe_load(parsed, permitted_classes: [Symbol], aliases: true)
     end
 
     def configure_with_overrides
       config = raw_configuration
-      policies = config[config_key_base].transform_values { |v| Array.wrap(v) }
+      policies = config[config_key_base].transform_values { |v| parse_policies_config(v) }
       env_var_direct_override(
         env_var_group_override(
           config,
@@ -105,7 +105,11 @@ module YamlCspConfig
 
     def add_to_csp(policies, rule, value)
       policies[rule] ||= []
-      policies[rule] += Array.wrap(value)
+      policies[rule] += parse_policies_config(value)
+    end
+
+    def parse_policies_config(policy)
+      Array.wrap(policy).flatten
     end
 
     def config_key_base

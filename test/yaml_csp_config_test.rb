@@ -14,7 +14,8 @@ module YamlCspConfig
       assert_includes policy.directives, "script-src"
       assert_equal [SELF_POLICY, "https://www.google-analytics.com"], policy.directives["script-src"]
       assert_equal [SELF_POLICY, DATA_PROTOCOL_POLICY], policy.directives["font-src"]
-      assert_equal [SELF_POLICY, DATA_PROTOCOL_POLICY, "foobar"], policy.directives["img-src"]
+      assert_equal [SELF_POLICY, DATA_PROTOCOL_POLICY, "https://www.google-analytics.com", "foobar"],
+                   policy.directives["img-src"]
     end
 
     test "loads Rails env configuration" do
