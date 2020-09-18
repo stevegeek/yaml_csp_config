@@ -1,0 +1,60 @@
+module YamlCspConfig
+  VERSION: String
+
+  class Railtie < ::Rails::Railtie
+  end
+
+  class Configuration
+    attr_accessor configuration_file_path: String | Pathname
+    attr_accessor yaml_config_base_key: String | Symbol
+    attr_accessor default_env_var_additions_key_prefix: String
+    attr_accessor default_env_var_group_key: String
+
+    def initialize: -> void
+  end
+
+  def self.configuration: -> YamlCspConfig::Configuration
+  def self.configure: ?{ (YamlCspConfig::Configuration config) -> void } -> YamlCspConfig::Configuration
+
+  YamlLoader::DIRECTIVES: Array[Symbol]
+
+  type cspFilePath = String | Pathname
+  type cspGroup = Hash[String, cspDirectives]
+  type cspDirectives = Hash[String, String | Symbol | Array[String | Symbol]]
+
+  type cspPolicyRules = Hash[String, Array[String | Symbol]]
+
+  class YamlLoader
+    def self.call: (ActionDispatch::ContentSecurityPolicy policy, ?cspFilePath config_file) -> ActionDispatch::ContentSecurityPolicy
+
+    def initialize: (
+      ActionDispatch::ContentSecurityPolicy policy,
+      cspFilePath config_file_path,
+      ?group_key: String,
+      ?var_key_prefix: String
+    ) -> void
+
+    def configure: -> ActionDispatch::ContentSecurityPolicy
+
+    private
+
+    attr_reader policy: ActionDispatch::ContentSecurityPolicy
+    attr_reader config_file_path: cspFilePath
+    attr_reader env_var_group_key: String
+    attr_reader env_var_key_prefix: String
+
+    def raw_configuration: -> cspGroup
+    def configure_with_overrides: -> cspPolicyRules
+    def env_override: (cspGroup config, cspPolicyRules policies) -> cspPolicyRules
+    def env_var_group_override: (cspGroup config, cspPolicyRules policies) -> cspPolicyRules
+    def env_var_direct_override: (cspPolicyRules policies) -> cspPolicyRules
+    def add_to_csp: (cspPolicyRules policies, String rule, (Symbol | String | Array[String | Symbol]) value) -> void
+    def config_key_base: -> String
+  end
+end
+
+module ActionDispatch
+  class ContentSecurityPolicy
+    def load_from_yml: -> ActionDispatch::ContentSecurityPolicy
+  end
+end

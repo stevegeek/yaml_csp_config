@@ -58,48 +58,58 @@ module YamlCspConfig
 
     attr_reader :policy, :config_file_path, :env_var_group_key, :env_var_key_prefix
 
-    def yaml
-      @yaml ||= begin
-        parsed = ERB.new(File.read(config_file_path)).result(binding)
-        YAML.safe_load(parsed, permitted_classes: [Symbol])
-      end
-    end
-
-    def csp_config
-      @csp_config ||= HashWithIndifferentAccess.new(yaml[YamlCspConfig.configuration.yaml_config_base_key.to_s])
+    def raw_configuration
+      parsed = ERB.new(File.read(config_file_path.to_s)).result(binding)
+      YAML.safe_load(parsed, permitted_classes: [Symbol])
     end
 
     def configure_with_overrides
-      env_override
-      env_var_group_override
-      env_var_direct_override
-      csp_config
+      config = raw_configuration
+      policies = config[config_key_base].transform_values { |v| Array.wrap(v) }
+      env_var_direct_override(
+        env_var_group_override(
+          config,
+          env_override(config, policies)
+        )
+      )
     end
 
     # Override with any Rails env specific config
-    def env_override
-      yaml[Rails.env]&.each { |k, v| add_to(k, v) }
+    def env_override(config, policies)
+      d = config[Rails.env.to_s]
+      return policies unless d
+      raise(StandardError, "The config is invalid for env #{Rails.env}") unless d.is_a?(Hash)
+      d.each { |k, v| add_to_csp(policies, k, v) }
+      policies
     end
 
     # Optional an overriding config group can be specified by name in an environment variable
-    def env_var_group_override
+    def env_var_group_override(config, policies)
       group_name = ENV[env_var_group_key]
-      return if group_name.nil? || group_name.empty? || group_name == Rails.env
-
-      yaml[group_name]&.each { |k, v| add_to(k, v) }
+      return policies if group_name.nil? || group_name.empty? || group_name == Rails.env
+      d = config[group_name]
+      raise(StandardError, "The config is invalid for #{group_name}") unless d.is_a?(Hash)
+      d.each { |k, v| add_to_csp(policies, k, v) }
+      policies
     end
 
     # Allow environment variables to add to rules
-    def env_var_direct_override
+    def env_var_direct_override(policies)
       DIRECTIVES.each do |rule|
-        k = env_var_key_prefix + rule.to_s.upcase
-        add_to(rule, ENV[k].split(" ")) if ENV[k].present?
+        d = rule.to_s
+        k = env_var_key_prefix + d.upcase
+        add_to_csp(policies, d, ENV[k].split(" ")) if ENV[k].present?
       end
+      policies
     end
 
-    def add_to(rule, value)
-      csp_config[rule] ||= []
-      csp_config[rule] += value
+    def add_to_csp(policies, rule, value)
+      policies[rule] ||= []
+      policies[rule] += Array.wrap(value)
+    end
+
+    def config_key_base
+      @config_key_base ||= YamlCspConfig.configuration.yaml_config_base_key.to_s
     end
   end
 end

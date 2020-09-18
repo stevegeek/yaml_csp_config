@@ -7,20 +7,23 @@ require "yaml_csp_config/yaml_loader"
 # Exposes a configuration class for initializer
 module YamlCspConfig
   class << self
-    attr_accessor :configuration
+    attr_reader :configuration
 
     def configure
-      self.configuration ||= Configuration.new
+      @configuration ||= Configuration.new
       yield(configuration) if block_given?
+      configuration
     end
   end
 
   # Configuration class for initializer
   class Configuration
+    # @dynamic configuration_file_path, yaml_config_base_key
     attr_accessor :configuration_file_path,
-                  :default_env_var_additions_key_prefix,
-                  :default_env_var_group_key,
                   :yaml_config_base_key
+    # @dynamic default_env_var_additions_key_prefix, default_env_var_group_key
+    attr_accessor :default_env_var_additions_key_prefix,
+                  :default_env_var_group_key
 
     def initialize
       @configuration_file_path = Rails.root.join("config", "content_security_policy.yml")
