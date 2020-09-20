@@ -163,7 +163,7 @@ $ gem install yaml_csp_config
 ```
 Then run the **generator to add the initializer**
 
-    rails yaml_csp_config:install
+    rails g yaml_csp_config:install
 
 
 ## Usage
