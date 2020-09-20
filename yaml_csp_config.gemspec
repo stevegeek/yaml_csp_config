@@ -13,12 +13,12 @@ Gem::Specification.new do |spec|
   spec.email       = ["stevegeek@gmail.com"]
   spec.homepage    = "https://github.com/stevegeek/yaml_csp_config"
   spec.summary     = "yaml_csp_config provides you with a way to manage your Rails CSP configuration via a YAML file."
-  spec.description = "The CSP configuration can also be extended by environment variables."
+  spec.description = "yaml_csp_config provides you with a way to manage your Rails 5.2+ CSP configuration via a YAML file. The CSP configuration can also be extended by environment variables."
   spec.license     = "MIT"
 
   spec.required_ruby_version = ">= 2.6"
 
-  spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md", "sig/types.rbs"]
 
   spec.add_dependency "rails", ">= 5.2"
 
