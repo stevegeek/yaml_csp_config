@@ -7,14 +7,14 @@ require "yaml_csp_config/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "yaml_csp_config"
-  spec.version     = YamlCspConfig::VERSION
-  spec.authors     = ["Stephen Ierodiaconou"]
-  spec.email       = ["stevegeek@gmail.com"]
-  spec.homepage    = "https://github.com/stevegeek/yaml_csp_config"
-  spec.summary     = "yaml_csp_config provides you with a way to manage your Rails CSP configuration via a YAML file."
+  spec.name = "yaml_csp_config"
+  spec.version = YamlCspConfig::VERSION
+  spec.authors = ["Stephen Ierodiaconou"]
+  spec.email = ["stevegeek@gmail.com"]
+  spec.homepage = "https://github.com/stevegeek/yaml_csp_config"
+  spec.summary = "yaml_csp_config provides you with a way to manage your Rails CSP configuration via a YAML file."
   spec.description = "yaml_csp_config provides you with a way to manage your Rails 5.2+ CSP configuration via a YAML file. The CSP configuration can also be extended by environment variables."
-  spec.license     = "MIT"
+  spec.license = "MIT"
 
   spec.required_ruby_version = ">= 2.6"
 

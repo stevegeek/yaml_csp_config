@@ -6,7 +6,6 @@ if Gem.loaded_specs["activesupport"].version < Gem::Version.new("7.0.0")
   Rails.application.config.assets.version = "1.0"
 end
 
-
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
 

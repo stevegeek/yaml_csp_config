@@ -15,7 +15,7 @@ module YamlCspConfig
       assert_equal [SELF_POLICY, "https://www.google-analytics.com"], policy.directives["script-src"]
       assert_equal [SELF_POLICY, DATA_PROTOCOL_POLICY], policy.directives["font-src"]
       assert_equal [SELF_POLICY, DATA_PROTOCOL_POLICY, "https://www.google-analytics.com", "foobar"],
-                   policy.directives["img-src"]
+        policy.directives["img-src"]
     end
 
     test "loads Rails env configuration" do
@@ -26,7 +26,7 @@ module YamlCspConfig
       assert_kind_of ActionDispatch::ContentSecurityPolicy, policy
       assert_includes policy.directives, "script-src"
       assert_equal [SELF_POLICY, "https://www.google-analytics.com", "'unsafe-eval'", "https://localhost:3035"],
-                   policy.directives["script-src"]
+        policy.directives["script-src"]
       assert_equal [SELF_POLICY, DATA_PROTOCOL_POLICY], policy.directives["font-src"]
     end
 
@@ -48,7 +48,7 @@ module YamlCspConfig
       assert_kind_of ActionDispatch::ContentSecurityPolicy, policy
       assert_includes policy.directives, "script-src"
       assert_equal [SELF_POLICY, "https://www.google-analytics.com", "https://cdnjs.cloudflare.com"],
-                   policy.directives["script-src"]
+        policy.directives["script-src"]
     end
   end
 end

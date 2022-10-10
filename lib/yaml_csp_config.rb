@@ -20,10 +20,10 @@ module YamlCspConfig
   class Configuration
     # @dynamic configuration_file_path, yaml_config_base_key
     attr_accessor :configuration_file_path,
-                  :yaml_config_base_key
+      :yaml_config_base_key
     # @dynamic default_env_var_additions_key_prefix, default_env_var_group_key
     attr_accessor :default_env_var_additions_key_prefix,
-                  :default_env_var_group_key
+      :default_env_var_group_key
 
     def initialize
       @configuration_file_path = Rails.root.join("config", "content_security_policy.yml")

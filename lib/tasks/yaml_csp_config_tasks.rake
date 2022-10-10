@@ -8,7 +8,7 @@ namespace :yaml_csp_config do
     puts "\nDirective\t\t: Directive Value"
     puts "---------\t\t  ---------------"
     policy.directives.each do |k, v|
-      puts "#{k}\t\t: #{v.join(' ')}"
+      puts "#{k}\t\t: #{v.join(" ")}"
     end
 
     puts "\n\nConfiguration\t\t: Value"
