@@ -13,3 +13,4 @@ sig/rbs_rails/
 Gemfile.lock
 gemfiles/*.gemfile.lock
 *.gem
+.tool-versions
