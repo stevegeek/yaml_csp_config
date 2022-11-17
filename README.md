@@ -2,29 +2,93 @@
 
 ### What?
 
-This Rails plugin gem is designed to allow you to be able to specify your content security policy 
-for Rails 5.2+ in a YAML file, instead of using the Rails DSL. 
+A gem for Rails 6+ that allows you to specify your content security policy (CSP) in a YAML file, instead of using the Rails DSL. 
 
-This makes the configuration  of your content security policy more akin to configuring other things 
-through YAML files. 
-  
-The gem also contains a extra few features. These allow you to add content security policy configuration
-via environment variables, either by configuring a specific addition for a specific directive or by 
-configuring the name of a group of configurations to be applied from the configuration file in the 
-application. This is useful for deployed environments where the content security policy may be slightly 
-different per deployment.
 
 ### Why?
 
+The YAML configuration is potentially more structured, and easier to read and maintain
+that using the Ruby DSL with conditional logic on env vars and so on.
+
+Also config of the CSP becomes similar to configuring other things in Rails, such as the database, via YAML files. 
+
+### Features
+
 * Configure your CSP in YAML
-* Provide additional CSP configuration which is applied according to environment variables
+  * Use anchors/aliases to avoid duplicated blocks of URLs between different policy directives
+  * Create Rails env specific configurations (eg directives only for `development`)
+* Extend the content security policy configuration via environment variables. Useful for deployed environments where the CSP is different per deployment.
+  1) configure a specific addition for a specific directive or 
+  2) specify the name of a group of configurations to be applied. 
+* The YAML file can contain ERB
 
 ## Example
 
-Below is an artificial example of a security policy before and after converting DSL to YAML, 
-making use of YAML aliases to allow sharing of policy  configurations:
+Below is an example of a security policy in YAML and Rails DSL.
 
-### Before (Without this gem):
+### In YAML (with this gem):
+
+`config/content_security_policy.yml`
+
+```yaml
+self_and_data_uri_policy: &SELF_AND_DATA
+  - :self
+  - :data
+
+google_static_hosts: &GOOGLE_STATIC
+  - https://*.googleapis.com
+  - https://*.gstatic.com
+
+content_security_policy:
+  # Base config
+  report_uri: "/csp-violation-report-endpoint"
+
+  default_src: :self
+
+  object_src: :none
+
+  font_src: 
+    - :self
+    - *GOOGLE_STATIC
+    - https://fonts.gstatic.com
+  
+  style_src: 
+    - *SELF_AND_DATA
+    - :unsafe_inline
+  
+  img_src:
+    - *SELF_AND_DATA
+    - *GOOGLE_STATIC
+    - https://s3.amazonaws.com
+
+  script_src:
+    - :self
+    - https://cdnjs.cloudflare.com
+    - https://www.google-analytics.com
+    - https://maps.googleapis.com
+
+  connect_src:
+    - :self
+
+development:
+  img_src:
+    - http://localhost:3035
+
+  script_src:
+    - http://localhost:3035
+
+  connect_src:
+    - http://localhost:3035
+    - ws://localhost:3000
+    - ws://localhost:3035
+    - ws://127.0.0.1:35729
+
+review_apps:
+  connect_src: 
+    - wss://*.herokuapp.com
+```
+
+### Equivalent in Ruby DSL:
 
 `config/initializers/content_security_policy.rb`
 
@@ -87,69 +151,6 @@ end
 # ...
 ```
 
-### After (With this gem):
-
-`config/content_security_policy.yml`
-
-```yaml
-self_and_data_uri_policy: &SELF_AND_DATA
-  - :self
-  - :data
-
-google_static_hosts: &GOOGLE_STATIC
-  - https://*.googleapis.com
-  - https://*.gstatic.com
-
-content_security_policy:
-  # Base config
-  report_uri: "/csp-violation-report-endpoint"
-
-  default_src: :self
-
-  object_src: :none
-
-  font_src: 
-    - :self
-    - *GOOGLE_STATIC
-    - https://fonts.gstatic.com
-  
-  style_src: 
-    - *SELF_AND_DATA
-    - :unsafe_inline
-  
-  img_src:
-    - *SELF_AND_DATA
-    - *GOOGLE_STATIC
-    - https://s3.amazonaws.com
-
-  script_src:
-    - :self
-    - https://cdnjs.cloudflare.com
-    - https://www.google-analytics.com
-    - https://maps.googleapis.com
-
-  connect_src:
-    - :self
-
-development:
-  img_src:
-    - http://localhost:3035
-
-  script_src:
-    - http://localhost:3035
-
-  connect_src:
-    - http://localhost:3035
-    - ws://localhost:3000
-    - ws://localhost:3035
-    - ws://127.0.0.1:35729
-
-review_apps:
-  connect_src: 
-    - wss://*.herokuapp.com
-```
-
-
 ## Installation
 Add to your Gemfile:
 
@@ -168,17 +169,9 @@ Then run the **generator to add the initializer**
 
 ## Usage
 
-### `ActionDispatch::ContentSecurityPolicy.load_from_file`
-
-`YamlCspConfig` extends `ActionDispatch::ContentSecurityPolicy` with a method to 
-load configuration from a YAML file. By default the initializer will add the `load_from_file`
-instance method and call it on initialisation.
- 
-If you wish instead to call it explicitly  make sure to comment it out from the initializer. 
-
 ### YAML file format
 
-**Note: The YAML file can also be an ERB template.**
+Note: The YAML file can also be an ERB template.
 
 The file must contain at at least the 'base' configuration group, containing the base or common CSP 
 configuration.
@@ -251,6 +244,14 @@ For example:
     CSP_CONFIGURATION_ADDITIONS_SCRIPT_SRC=host.cdn
 
 will add `host.cdn` to the `script_src`  directive.
+
+### Note this extends `ActionDispatch::ContentSecurityPolicy.load_from_file`
+
+`YamlCspConfig` extends `ActionDispatch::ContentSecurityPolicy` with a method to
+load configuration from a YAML file. By default the initializer will add the `load_from_file`
+instance method and call it on initialisation.
+
+If you wish instead to call it explicitly  make sure to comment it out from the initializer.
 
 ## Run type check (RBS & steep)
 
