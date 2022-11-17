@@ -16,13 +16,12 @@ Gem::Specification.new do |spec|
   spec.description = "yaml_csp_config provides you with a way to manage your Rails 5.2+ CSP configuration via a YAML file. The CSP configuration can also be extended by environment variables."
   spec.license = "MIT"
 
-  spec.required_ruby_version = ">= 2.6"
+  spec.required_ruby_version = ">= 2.7"
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md", "sig/types.rbs"]
 
-  spec.add_dependency "rails", ">= 5.2"
+  spec.add_dependency "rails", ">= 6.0"
 
-  spec.add_development_dependency "rbs_rails"
   spec.add_development_dependency "standard"
   spec.add_development_dependency "steep"
   spec.add_development_dependency "sqlite3"
