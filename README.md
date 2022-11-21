@@ -8,7 +8,7 @@ A gem for Rails 6+ that allows you to specify your content security policy (CSP)
 ### Why?
 
 The YAML configuration is potentially more structured, and easier to read and maintain
-that using the Ruby DSL with conditional logic on env vars and so on.
+than using the Ruby DSL with conditional logic on env vars and so on.
 
 Also config of the CSP becomes similar to configuring other things in Rails, such as the database, via YAML files. 
 
