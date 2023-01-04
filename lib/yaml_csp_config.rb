@@ -7,10 +7,11 @@ require "yaml_csp_config/yaml_loader"
 # Exposes a configuration class for initializer
 module YamlCspConfig
   class << self
-    attr_reader :configuration
+    def configuration
+      @configuration ||= Configuration.new
+    end
 
     def configure
-      @configuration ||= Configuration.new
       yield(configuration) if block_given?
       configuration
     end
