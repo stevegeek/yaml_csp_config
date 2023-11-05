@@ -5,6 +5,7 @@ module YamlCspConfig
   class YamlLoader
     DIRECTIVES = %i[
       base_uri
+      block_all_mixed_content
       child_src
       connect_src
       default_src
@@ -15,10 +16,24 @@ module YamlCspConfig
       img_src
       manifest_src
       media_src
+      navigate_to
       object_src
+      plugin_types
       prefetch_src
+      referrer
+      report_to
+      report_uri
+      require_trusted_types_for
+      sandbox
       script_src
+      script_src_attr
+      script_src_elem
       style_src
+      style_src_attr
+      style_src_elem
+      trusted_types
+      unsafe_hashes
+      upgrade_insecure_requests
       worker_src
     ].freeze
 
