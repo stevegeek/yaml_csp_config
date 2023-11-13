@@ -32,7 +32,6 @@ module YamlCspConfig
       style_src_attr
       style_src_elem
       trusted_types
-      unsafe_hashes
       upgrade_insecure_requests
       worker_src
     ].freeze
