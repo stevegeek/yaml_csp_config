@@ -49,6 +49,7 @@ module YamlCspConfig
     def env_var_group_override: (cspGroup config, cspPolicyRules policies) -> cspPolicyRules
     def env_var_direct_override: (cspPolicyRules policies) -> cspPolicyRules
     def add_to_csp: (cspPolicyRules policies, String rule, (Symbol | String | Array[String | Symbol]) value) -> void
+    def parse_policies_config: (untyped) -> untyped
     def config_key_base: -> String
   end
 end

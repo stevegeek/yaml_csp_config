@@ -112,7 +112,8 @@ module YamlCspConfig
       DIRECTIVES.each do |rule|
         d = rule.to_s
         k = env_var_key_prefix + d.upcase
-        add_to_csp(policies, d, ENV[k].split(" ")) if ENV[k].present?
+        override_env_var_value = ENV[k]
+        add_to_csp(policies, d, override_env_var_value.split(" ")) if override_env_var_value
       end
       policies
     end
