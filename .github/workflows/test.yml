@@ -21,8 +21,7 @@ jobs:
         env:
           MATRIX_RAILS_VERSION: ${{ matrix.rails }}
         run: |
-          export BUNDLE_GEMFILE="${GITHUB_WORKSPACE}/gemfiles/rails_${MATRIX_RAILS_VERSION}.gemfile"
           gem install bundler
-          bundle install --jobs 4 --retry 3
+          bundle exec appraisal install --jobs 4 --retry 3
       - name: Run tests
-        run: ./bin/test
+        run: bundle exec appraisal rails_${MATRIX_RAILS_VERSION} ./bin/test
