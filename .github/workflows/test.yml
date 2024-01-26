@@ -22,6 +22,7 @@ jobs:
           MATRIX_RAILS_VERSION: ${{ matrix.rails }}
         run: |
           gem install bundler
-          bundle exec appraisal install --jobs 4 --retry 3
+          bundle install
+          bundle exec appraisal install
       - name: Run tests
         run: bundle exec appraisal rails_${MATRIX_RAILS_VERSION} ./bin/test
