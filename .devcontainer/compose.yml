@@ -1,4 +1,4 @@
-name: "vident"
+name: "yaml_csp_config"
 
 services:
   yaml_csp_config-dev-env:
