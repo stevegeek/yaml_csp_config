@@ -2,8 +2,8 @@ PATH
   remote: ..
   specs:
     yaml_csp_config (1.1.0)
-      activesupport (>= 7.0, < 8.0)
-      railties (>= 7.0, < 8.0)
+      activesupport (>= 7.0, < 9.0)
+      railties (>= 7.0, < 9.0)
 
 GEM
   remote: https://rubygems.org/
@@ -79,11 +79,14 @@ GEM
       rake
       thor (>= 0.14.0)
     ast (2.4.2)
+    base64 (0.2.0)
+    bigdecimal (3.1.9)
     builder (3.2.4)
     concurrent-ruby (1.2.3)
     crass (1.0.6)
     csv (3.2.8)
     date (3.3.4)
+    drb (2.2.1)
     erubi (1.12.0)
     ffi (1.16.3)
     fileutils (1.7.2)
@@ -109,7 +112,9 @@ GEM
     marcel (1.0.2)
     method_source (1.0.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
     minitest (5.21.2)
+    mutex_m (0.3.0)
     net-imap (0.4.9.1)
       date
       net-protocol
@@ -120,7 +125,8 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.16.0-arm64-darwin)
+    nokogiri (1.16.0)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     parallel (1.24.0)
     parser (3.3.0.5)
@@ -185,7 +191,8 @@ GEM
       rubocop-ast (>= 1.30.0, < 2.0)
     ruby-progressbar (1.13.0)
     securerandom (0.3.1)
-    sqlite3 (1.7.1-arm64-darwin)
+    sqlite3 (1.7.1)
+      mini_portile2 (~> 2.8.0)
     standard (1.33.0)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -227,10 +234,15 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin
 
 DEPENDENCIES
   appraisal
+  base64
+  bigdecimal
+  drb
+  mutex_m
   rails (~> 7.0.8)
   sqlite3
   standard

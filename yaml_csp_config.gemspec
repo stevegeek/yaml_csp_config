@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md", "sig/types.rbs"]
 
-  spec.add_dependency "railties", ">= 7.0", "< 8.0"
-  spec.add_dependency "activesupport", ">= 7.0", "< 8.0"
+  spec.add_dependency "railties", ">= 7.0", "< 9.0"
+  spec.add_dependency "activesupport", ">= 7.0", "< 9.0"
 
   spec.add_development_dependency "appraisal"
 end

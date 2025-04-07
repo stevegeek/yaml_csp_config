@@ -1,0 +1,10 @@
+name: "vident"
+
+services:
+  yaml_csp_config-dev-env:
+    container_name: yaml_csp_config-dev-env
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    ports:
+      - "3000"
