@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    yaml_csp_config (1.1.0)
+    yaml_csp_config (1.2.0)
       activesupport (>= 7.0, < 9.0)
       railties (>= 7.0, < 9.0)
 
@@ -307,7 +307,7 @@ PLATFORMS
 
 DEPENDENCIES
   appraisal
-  rails (~> 8.0)
+  rails (~> 8.0.0)
   sqlite3
   standard
   steep
