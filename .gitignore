@@ -11,6 +11,7 @@ test/dummy/tmp/
 sig/rbs_rails/
 
 Gemfile.lock
+gemfiles/*.lock
 *.gem
 .tool-versions
 /.gem_rbs_collection/
