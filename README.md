@@ -2,7 +2,7 @@
 
 ### What?
 
-A gem for Rails 6+ that allows you to specify your content security policy (CSP) in a YAML file, instead of using the Rails DSL. 
+A gem for Rails that allows you to specify your content security policy (CSP) in a YAML file, instead of using the Rails DSL. 
 
 
 ### Why?
