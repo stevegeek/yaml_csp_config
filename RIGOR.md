@@ -1,7 +1,7 @@
 # Who made this, and how carefully
 
 <!-- rigor:summary -->
-**The idea was mine. The plan was mine. The implementation was written by me. I stand behind this code as soundly engineered and hold architectural responsibility for it. It was reviewed for quality (by me), reviewed for security (by me) and tested. I now make changes with an AI. The project is complete; it will not gain new features. This assessment is as of 2026-09-02. I recommend this for use; I put my name behind it.**
+**The idea was mine. The plan was mine. The implementation was written by me. I stand behind this code as soundly engineered and hold architectural responsibility for it. It was reviewed for quality (by me), reviewed for security (by me) and tested. I now make changes with an AI. The project is complete; it will not gain new features. This assessment is as of 2026-09-02. I recommend this for use; I put my name behind it. Statement made by: Stephen Ierodiaconou.**
 <!-- /rigor:summary -->
 
 ## Notes
@@ -21,6 +21,7 @@ features.
 
 ```yaml
 spec: "0.4"
+signed: "Stephen Ierodiaconou"
 rigor: owned
 vouch: yes
 checks:
