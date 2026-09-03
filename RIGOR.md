@@ -1,6 +1,6 @@
 # Who made this, and how carefully
 
-*A [Rigor, Vouch, Stages](https://rigor.diaconou.com/) disclosure stamp. The format and vocabulary are specified at [rigor.diaconou.com/spec](https://rigor.diaconou.com/spec/), version 0.4.*
+*A [Rigor, Vouch, Stages](https://rigor.diaconou.com/) disclosure stamp. The format and vocabulary are specified at [rigor.diaconou.com/spec](https://rigor.diaconou.com/spec/), version 1.0.*
 
 <!-- rigor:summary -->
 **The idea was mine. The plan was mine. The implementation was written by me. I
@@ -27,7 +27,7 @@ features.
 ## Stamp
 
 ```yaml
-spec: "0.4"
+spec: "1.0"
 signed: "Stephen Ierodiaconou"
 rigor: owned
 vouch: yes
@@ -46,9 +46,11 @@ assessed: 2026-09-02
 ```
 
 <!--
-checks: surface any subset under the stamp; done-values carry the actor.
-  comprehended: yes | no          (can a human explain every line?)
-  quality_reviewed / security_reviewed / tested: human | ai | human-with-ai | yes | no | not-applicable
-  owned: yes | no                 (architectural responsibility)
+checks: surface any subset; a done value names who did it.
+  comprehended / quality_reviewed / security_reviewed / tested / owned:
+    yes | human | ai | human-with-ai | no | not-applicable,
+    or a pair [before LLMs, since LLMs] of actors.
+  engineered and owned must surface the checks they imply; comprehended
+  cannot be satisfied by an AI alone.
 Run `rigor-md fmt RIGOR.md` after editing the stamp to refresh the summary.
 -->
