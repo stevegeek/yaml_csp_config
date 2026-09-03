@@ -3,7 +3,12 @@
 *A [Rigor, Vouch, Stages](https://rigor.diaconou.com/) disclosure stamp. The format and vocabulary are specified at [rigor.diaconou.com/spec](https://rigor.diaconou.com/spec/), version 0.4.*
 
 <!-- rigor:summary -->
-**The idea was mine. The plan was mine. The implementation was written by me. I stand behind this code as soundly engineered and hold architectural responsibility for it. It was reviewed for quality (by me), reviewed for security (by me) and tested. I now make changes with an AI. The project is complete; it will not gain new features. This assessment is as of 2026-09-02. I recommend this for use; I put my name behind it. Statement made by: Stephen Ierodiaconou.**
+**The idea was mine. The plan was mine. The implementation was written by me. I
+stand behind this code as soundly engineered and hold architectural
+responsibility for it. It was reviewed for quality and for security, both by me;
+and tested. I now make changes with an AI. The project is complete; it will not
+gain new features. This assessment is as of 2026-09-02. I recommend this for
+use; I put my name behind it. Statement made by: Stephen Ierodiaconou.**
 <!-- /rigor:summary -->
 
 ## Notes
