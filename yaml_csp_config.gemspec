@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.description = "yaml_csp_config provides you with a way to manage your Rails 7.2+ CSP configuration via a YAML file. The CSP configuration can also be extended by environment variables."
   spec.license = "MIT"
 
-  spec.required_ruby_version = ">= 3.2.0"
+  spec.required_ruby_version = ">= 3.3.0"
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md", "sig/types.rbs"]
 

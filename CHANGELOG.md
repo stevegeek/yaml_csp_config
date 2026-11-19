@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Drop support for Ruby 3.2 (minimum is now Ruby 3.3)
+
 ## 1.3.0
 
 - Add support for Ruby 4.0 and Rails 8.1
